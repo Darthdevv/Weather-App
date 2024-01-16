@@ -11,10 +11,8 @@ console.log(weatherImage)
 
 const API_KEY = "7e01a52a416412b73fb49baf3bf0d61c";
 let data = [];
-document.onload = getWeatherData();
 
-
-async function getWeatherData(city = 'new york') {
+async function getWeatherData(city = 'madagascar') {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
   );
@@ -24,17 +22,14 @@ async function getWeatherData(city = 'new york') {
   
 }
 
-
-
 searchIcon.addEventListener('click', () => {
   const city = searchInput.value.trim();
   getWeatherData(city);
 })
 
-
-
 function displayWeather() {
-  cityName.innerHTML = data.name || 'New York'
+  document.getElementById('weather').classList.remove('hidden');
+  cityName.innerHTML = data.name || 'Madagascar'
   degreeCelisus.innerHTML = Math.trunc(data.main.temp) + '°C';
   humidityPercentage.innerHTML = data.main.humidity + '%'
   windSpeedPercentage.innerHTML = data.wind.speed + ' km/h'
@@ -55,13 +50,3 @@ function displayWeather() {
   }
   searchInput.value = '';
 }
-
-// const successCallback = (position) => {
-//   console.log(position);
-// };
-
-// const errorCallback = (error) => {
-//   console.log(error);
-// };
-
-// navigator.geolocation.getCurrentPosition(successCallback, errorCallback);

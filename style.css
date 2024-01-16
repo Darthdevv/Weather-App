@@ -316,3 +316,9 @@ h2{
   justify-content: center;
   margin-bottom: 20px;
 }
+
+.hidden{
+  visibility: hidden;
+  opacity: 0;
+  display: none;
+}
