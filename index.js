@@ -4,13 +4,17 @@ const degreeCelisus = document.querySelector('.degrees');
 const cityName = document.querySelector('.city');
 const searchInput = document.querySelector('.search-input');
 const searchIcon = document.getElementById('search-icon');
+const humidityPercentage = document.querySelector('.percentage-1');
+const windSpeedPercentage = document.querySelector('.percentage-2');
+const weatherImage = document.getElementById('weather-img')
+console.log(weatherImage)
 
 const API_KEY = "7e01a52a416412b73fb49baf3bf0d61c";
 let data = [];
 document.onload = getWeatherData();
 
 
-async function getWeatherData(city) {
+async function getWeatherData(city = 'new york') {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
   );
@@ -25,14 +29,31 @@ async function getWeatherData(city) {
 searchIcon.addEventListener('click', () => {
   const city = searchInput.value.trim();
   getWeatherData(city);
-  displayWeather(city);
 })
 
 
-function displayWeather() {
-  cityName.innerHTML = data.name
-  degreeCelisus.innerHTML = Math.trunc(data.main.temp) + '°C';
 
+function displayWeather() {
+  cityName.innerHTML = data.name || 'New York'
+  degreeCelisus.innerHTML = Math.trunc(data.main.temp) + '°C';
+  humidityPercentage.innerHTML = data.main.humidity + '%'
+  windSpeedPercentage.innerHTML = data.wind.speed + ' km/h'
+  if (data.weather[0].main === 'Clouds') {
+    weatherImage.src = "assets/images/weather_icons/04d.png";
+  } else if(data.weather[0].main === 'Clear'){
+    weatherImage.src = "assets/images/weather_icons/01d.png"; 
+  } else if (data.weather[0].main === 'Snow') {
+    weatherImage.src = "assets/images/weather_icons/13d.png"; 
+  } else if (data.weather[0].main === 'Rain') {
+    weatherImage.src = "assets/images/weather_icons/10d.png"; 
+  } else if (data.weather[0].main === "Thunderstorm") {
+    weatherImage.src = "assets/images/weather_icons/11d.png";
+  } else if (data.weather[0].main === "Drizzle") {
+    weatherImage.src = "assets/images/weather_icons/09d.png";
+  } else if (data.weather[0].main === "Haze") {
+    weatherImage.src = "assets/images/weather_icons/50d.png";
+  }
+  searchInput.value = '';
 }
 
 // const successCallback = (position) => {
