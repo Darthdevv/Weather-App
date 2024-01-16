@@ -6,7 +6,7 @@ const searchInput = document.querySelector('.search-input');
 const searchIcon = document.getElementById('search-icon');
 const humidityPercentage = document.querySelector('.percentage-1');
 const windSpeedPercentage = document.querySelector('.percentage-2');
-const weatherImage = document.getElementById('weather-img')
+const weatherImage = document.getElementById('weather-img');
 
 const API_KEY = "7e01a52a416412b73fb49baf3bf0d61c";
 let data = [];
