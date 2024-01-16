@@ -7,7 +7,6 @@ const searchIcon = document.getElementById('search-icon');
 const humidityPercentage = document.querySelector('.percentage-1');
 const windSpeedPercentage = document.querySelector('.percentage-2');
 const weatherImage = document.getElementById('weather-img')
-console.log(weatherImage)
 
 const API_KEY = "7e01a52a416412b73fb49baf3bf0d61c";
 let data = [];
@@ -42,7 +41,7 @@ function displayWeather() {
   degreeCelisus.innerHTML = Math.trunc(data.main.temp) + '°C';
   humidityPercentage.innerHTML = data.main.humidity + '%'
   windSpeedPercentage.innerHTML = data.wind.speed + ' km/h'
-  
+
   if (data.weather[0].main === 'Clouds') {
     weatherImage.src = "assets/images/weather_icons/04d.png";
   } else if(data.weather[0].main === 'Clear'){
