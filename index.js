@@ -13,12 +13,18 @@ const API_KEY = "7e01a52a416412b73fb49baf3bf0d61c";
 let data = [];
 
 async function getWeatherData(city = 'madagascar') {
+
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
   );
-  data = await response.json();
-  console.log(data)
-    displayWeather()
+
+  if (response.status === 404) {
+    document.querySelector('.error').classList.remove('hidden');
+    document.getElementById('weather').classList.add('hidden');
+  } else {
+    data = await response.json();
+    displayWeather();
+  }
   
 }
 
@@ -28,11 +34,15 @@ searchIcon.addEventListener('click', () => {
 })
 
 function displayWeather() {
+
   document.getElementById('weather').classList.remove('hidden');
-  cityName.innerHTML = data.name || 'Madagascar'
+  document.querySelector('.error').classList.add('hidden');
+
+  cityName.innerHTML = data.name
   degreeCelisus.innerHTML = Math.trunc(data.main.temp) + '°C';
   humidityPercentage.innerHTML = data.main.humidity + '%'
   windSpeedPercentage.innerHTML = data.wind.speed + ' km/h'
+  
   if (data.weather[0].main === 'Clouds') {
     weatherImage.src = "assets/images/weather_icons/04d.png";
   } else if(data.weather[0].main === 'Clear'){
@@ -48,5 +58,6 @@ function displayWeather() {
   } else if (data.weather[0].main === "Haze") {
     weatherImage.src = "assets/images/weather_icons/50d.png";
   }
+
   searchInput.value = '';
 }

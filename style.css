@@ -322,3 +322,9 @@ h2{
   opacity: 0;
   display: none;
 }
+
+.error{
+  color: var(--on-surface-variant-2);
+  font-style: normal;
+  font-weight: 400;
+}
